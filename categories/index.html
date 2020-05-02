@@ -1,0 +1,33 @@
+---
+layout: page
+title: Categories
+permalink: /categories/
+---
+
+{% if site.posts.size == 0 %}
+  <h2>No post found</h2>
+{% endif %}
+
+<div class="categories">
+	{% for category in site.categories %}
+    <h2 id="{{ category[0] }}">
+      {{ category[0] }}
+    </h2>
+    <ul class="category">
+      {% for post in category[1] %}
+        {% if post.title != null %}
+          <li>
+            {% if post.link %}
+              <a href="{{ post.link }}">
+            {% else %}
+              <a href="{{ site.baseurl }}{{ post.url }}">
+            {% endif %}
+                {{ post.title }}
+              </a>
+              <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
