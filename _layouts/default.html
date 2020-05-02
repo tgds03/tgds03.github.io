@@ -9,16 +9,17 @@
       <div id="main" role="main" class="container">
         {{ content }}
       </div>
-
-      <div class="wrapper-footer">
-        <div class="container">
-          <footer class="footer">
-            {% include footer.html %}
-          </footer>
-        </div>
-      </div>
-      {% include analytics.html %}
     </div>
+    
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          {% include footer.html %}
+        </footer>
+      </div>
+    </div>
+    {% include analytics.html %}
+    
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
     <script src='{{ site.baseurl }}/js/sidebarToggle.js'></script>
   </body>
