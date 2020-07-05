@@ -1,0 +1,543 @@
+---
+title : "7) 행렬과 선형시스템"
+data : 2020-06-28 07:50
+tag : [공학수학]
+categories : 공학수학
+layout : post
+---
+
+## 행렬
+
+ `\( n\times m \)` 행렬은 n개의 행(가로줄, row)과 m개의 열(세로줄, column)을 가진 직사각형 배열을 말한다. 아래 행렬 `\( \mathbf{A} \)`의 크기는 `\( 2\times 3 \)`이다.
+```\[ 
+\mathbf{A}(t) = \begin{pmatrix} 2 & e^t & \pi \\ 1 & \sqrt{2} & -5\end{pmatrix}
+ \]```
+ 행렬의 원소가 될 수 있는 것은 스칼라 외에도 symbol, 함수가 있다. 함수가 포함되어 있다면 그 행렬은 함수가 요구하는 독립변수를 받을 수 있다.
+
+ 각 원소는 `\( a_{ij} \)`로 나타내며, `\( i \)`는 행번호, `\( j \)`는 열번호를 의미한다. 위 행렬에서, `\( a_{23}=5 \)`이다.
+
+### 행렬 연산
+
+### 행렬의 합
+
+ 같은 크기의 행렬끼리는 덧셈/뺄셈 연산을 할 수 있다. `\( n\times m \)` 크기의 `\( \mathbf{A}=[a_{ij}], \mathbf{B}=[b_{ij}] \)`에 대해 이 둘의 덧셈은 다음과 같다.
+```\[ 
+\mathbf{A+B}:\mathbb{(M,M)\mapsto M}\ (n \times m) \\
+\mathbf{A+B} = [a_{ij} + b_{ij}]
+ \]```
+ 벡터의 합연산을 행렬의 합연산의 일부로 볼 수 있다. 항등원으로 영행렬을 가진다.
+
+### 상수배
+
+ 행렬과 스칼라끼리 곱을 할 수 있다. 각 원소를 상수배만큼 곱한 것과 같다.
+```\[ 
+\alpha\mathbf{A}:\mathbb{(R,M)\mapsto M}\ (n \times m) \\
+\alpha\mathbf{A} = [\alpha a_{ij}]
+ \]```
+ 벡터의 상수배 연산을 생각하면 된다.
+
+### 행렬곱
+
+ 행렬의 곱은 다음과 같이 정의된다.
+```\[ 
+\mathbf{A\times B}:([n\times k], [k\times m])\mapsto[n\times m]\\
+\mathbf{A\times B} = \sum^{k}_{s=1}a_{is}b_{sj}
+ \]```
+ 풀어서 설명하자면 `\( \mathbf{A\times B} \)`의 `\( i,j \)`번째 원소는 `\( \mathbf{A} \)`의 `\( i \)`번째 행벡터와 `\( \mathbf{B} \)`의 `\( j \)`번째 열벡터의 내적과 같다. 스칼라 간의 곱셈과 같이 `\( \times \)`는 생략하기도 한다.
+
+ 정의에 따라 `\( \mathbf{A} \)`의 열 갯수와 `\( \mathbf{B} \)`의 행 갯수가 같아야 하며, 그렇지 않을 경우 둘의 행렬곱은 정의되지 않는다. 이 탓에 `\( \mathbf{A\times B} \)`가 정의되더라도 `\( \mathbf{B\times A} \)`는 정의되지 않을 수 있다.
+
+ 보다시피 교환법칙이 성립하지 않는다. 결합법칙은 성립하며, 합연산에 대해 분배법칙이 가능하다.
+
+ 또한 스칼라 간의 곱셈과는 달리, `\( \mathbf{A\times B} \)`가 영행렬이더라도  `\( \mathbf{A, B} \)` 중 하나가 반드시 영행렬인 것은 아니다. 다만 항등원으로 단위행렬을 가진다.
+
+ 행렬곱의 특수한 경우로 벡터와 행렬의 곱을 생각할 수 있다. 즉 `\( ([1\times k], [k\times m]) \)`의 경우나 `\( ([n\times k], [k\times 1]) \)`의 경우를 생각해볼 수 있다. 나아가 이렇게 구한 `\( [1\times m] \)` (또는 `\( [n\times 1] \)` )벡터를 `\( n \)`번 (또는 `\( m \)`번) 나열하여 전체 행렬을 구할 수 있다. 이는 큰 크기의 행렬을 작은 단위로 나눠서 풀 수 있도록 해준다. 
+
+## 특수 행렬
+
+### 정사각행렬 (square matrix)
+
+ 정사각행렬이란 `\( n\times n \)` 크기의 행렬을 말한다. 즉 행의 갯수와 열의 갯수가 같은 행렬이다. 
+
+ 또한 정사각행렬에서 대각성분(main diagonal)이란 행렬의 원소 `\( a_{ii} \)`, 즉 행번과 열번이 같은 원소들을 말한다.
+
+### 단위행렬 (Identity matrix)
+
+ 단위행렬이란 모든 대각성분이 1이며 그 외의 원소들은 전부 0인 행렬을 말한다. 관례적으로 `\( \mathbf{I} \)`라고 표기한다.
+
+ 단위행렬의 특징으로 행렬곱의 항등원이다. 즉 `\( k\times n \)` 크기의 행렬 `\( \mathbf{A} \)`에 대해, `\( \mathbf{AI = IA = A} \)`이다.
+
+### 전치행렬
+
+ 전치행렬이란 어떤 행렬에 대해 모든 원소의 행번과 열번을 맞바꾼 새로운 행렬을 말한다. 대각성분을 기준으로 반전시킨 것으로도 볼 수 있다.
+```\[ 
+\mathbf{A}=[a_{ij}]\text{에 대해, 전치행렬 }\mathbf{A}^t는\\
+\mathbf{A}^t = [a_{ji}]
+ \]```
+ 정의에 따라, `\( \mathbf{A} \)`가 `\( n\times m \)` 크기라면 `\( \mathbf{A}^t \)`는 `\( m\times n \)` 크기이다. 또한 다음과 같은 성질을 가진다.
+
+-  `\( \mathbf{I}^t =  \mathbf{I} \)`
+- `\( (\mathbf{A}^t)^t= \mathbf{A} \)`
+-  `\( \mathbf{AB} \)`가 정의된다면,  `\( (\mathbf{AB})^t = \mathbf{B}^t\mathbf{A}^t \)`
+
+ 또한 두 벡터의 내적을 전치행렬과 행렬곱을 이용해서 나타낼 수 있다. (관례적으로 벡터는 `\( n\times 1 \)` 크기의 열벡터로 표현된다.)
+```\[ 
+\mathbf{X}=\begin{pmatrix}x_1 \\ x_2 \\ \vdots \\ x_n\end{pmatrix}, \mathbf{Y}=\begin{pmatrix}y_1 \\ y_2 \\ \vdots \\ y_n\end{pmatrix}\\
+\mathbf{X}^t\mathbf{Y} = \begin{pmatrix}x_1 & x_2 & \cdots & x_n\end{pmatrix}\begin{pmatrix}y_1 \\ y_2 \\ \vdots \\ y_n\end{pmatrix} = (x_1y_1, x_2y_2, \cdots, x_ny_n) = \mathbf{X\cdot Y}
+ \]```
+
+## Random walks in crystals
+
+ 어떤 그래프에 대해 adjacency matrix란 아래와 같은 `\( n\times n \)` 크기의 행렬 `\( \mathbf{A}=[a_{ij}] \)`을 말한다.
+```\[ 
+a_{ij} = \begin{cases}1 & v_i,v_j\text{가 이웃일때}\\0&v_i,v_j\text{를 잇는 간선이 없을 때}\end{cases}
+ \]```
+ adjacency matrix의 성질로, `\( \mathbf{A} \)` 자기 자신을 `\( n \)`번 행렬곱한 `\( \mathbf{A}^n \)`의 원소 `\( a_{ij} \)`는 `\( v_i \)`에서 `\( v_j \)`까지 `\( n \)`의 거리로 갈 수 있는 경우의 수를 의미한다.
+
+ 이 예시에서 보듯 행렬은 데이터 표현의 한 방법으로 사용될 수 있으며, 이에 대한 연산 역시 문제에 따라서 의미를 부여할 수 있다.
+
+## 기본행렬과 기본행연산
+
+ 행렬에 대해 기본행연산 세가지가 정의된다.
+
+- Type 1 : 행렬의 두 행을 맞바꾼다.
+- Type 2 : 한 행에 대해 0이 아닌 상수를 곱한다.
+- Type 3 : 한 행에 다른 행에 상수를 곱한 행벡터를 더한다.
+
+ 단위행렬에 대해 기본행연산을 수행한 것을 기본행렬이라고 하며 `\( \mathbf{E} \)`라고 표기한다. 이것의 성질로, 행렬곱 `\( \mathbf{EA} \)`는 `\( \mathbf{E} \)`에 수행한 기본행연산을 그대로 `\( \mathbf{A} \)`에 수행한 것과 같다. 
+
+ 또한 이는 중첩될 수 있다. 즉 `\( \mathbf{E}_1\mathbf{E}_2\cdots \mathbf{E}_r\mathbf{A}_r=\mathbf{B} \)`은 연산을 나타내는 각 `\( \mathbf{E}_i \)`를 `\( \mathbf{A}_0 \)`에 차례대로 수행한 것과 같다. 이때 `\( \mathbf{A}_0 \)`은 `\( \mathbf{B} \)`에 대해 row equivalent(행 동치 행렬)이라고 한다. 또한 이는 `\( \mathbf{E'B=A}_0 \)`을 만족하는 `\( \mathbf{E'} \)` 역시 존재함을 암시한다.
+
+ 여기서 `\( \mathbf{E}_1\mathbf{E}_2\cdots \mathbf{E}_r=\Omega \)`로 표기하기도 한다.
+
+ row equivalent의 성질로는 다음이 있다.
+
+- 자기 자신과는 항상 row equivalent이다.
+- `\( \mathbf{A} \)`가 `\( \mathbf{B} \)`에 대해 row equivalent하면, `\( \mathbf{B} \)` 역시 `\( \mathbf{A} \)`에 대해 row equivalent하다. (교환)
+- `\( \mathbf{A} \)`가 `\( \mathbf{B} \)`에 row equivalent하고, `\( \mathbf{B} \)`가 `\( \mathbf{C} \)`에 대해 마찬가지라면, `\( \mathbf{A} \)`가 `\( \mathbf{C} \)`에 대해서도 마찬가지이다. (전이)
+
+ 또한 각 연산은 연립방정식을 푸는 연산과 동일하다. [#](https://blog.naver.com/mykepzzang/220984295759)
+
+### Reduced Row Echelon Form (기약행사다리꼴)
+
+ 행렬 `\( \mathbf{A}=[a_{ij}] \)`가 다음을 만족할 때 reduced row echelon form이라고 말한다. 이때 leading entry는 각 행에서 0이 아닌 첫 번째 원소를 말한다.
+
+- 영벡터가 아닌 각 행의 leading entry는 1이다.
+- leading entry가 위치한 열의 나머지 성분은 모두 0이다.
+- `\( i \)`번째 열이 영벡터가 아니고 `\( k \)`번째 열이 영벡터라면, `\( i<k \)`이다.
+- 행 `\( r_1 \)`의 leading entry가 `\( c_1 \)` 열이고 행 `\( r_2 \)`의 것은 열 `\( c_2 \)`일때, `\( r_1<r_2 \to c_1<c_2 \)` 이다.
+
+ 이러한 행렬의 예시로 다음이 있다.
+```\[ 
+\begin{pmatrix}1 & -4 & 1 & 0 \\ 0 & 0 & 0 & 1\end{pmatrix}\\
+\begin{pmatrix}0 & 1 & 3 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0\end{pmatrix}\\
+ \]```
+ 행렬에 대해 기본행연산을 이용하여 reduced row echelon form으로 변형할 수 있다. 
+
+ 이때 테크닉으로  `\( \Omega = \mathbf{E}_1\mathbf{E}_2\cdots\mathbf{E}_r \)` 을 쉽게 구하기 위해서, `\( \mathbf{A} \)` 옆에 `\( \mathbf{I} \)`를 같이 배치하고 reduced하도록 기본행연산을 통해 `\( \mathbf{A} \)`을 변형하며 `\( \mathbf{I} \)`에도 똑같이 수행한다면, 결과적으로 `\( \mathbf{I}=\Omega \)`가 된다.
+
+
+
+## 행 공간(Row space), 열 공간(Column space), rank
+
+ 어느 행렬 `\( \mathbf{A}=[a_{ij}] \)` 에서 각 행벡터 `\( \mathbf{R}_i = (a_{i1}, \cdots, a_{im}) \)`들이 span하는 sub space를 `\( \mathbf{A} \)`의 행 공간(row space)라고 부르고, 마찬가지로 각 열벡터 `\( \mathbf{C}_i = (a_{1j}, \cdots, a_{nj}) \)`들이 span하는 sub space를 `\( \mathbf{A} \)`의 열 공간(column space)라고 부른다. 이때 각 공간의 차원, 즉 `\( m \)`과 `\( n \)`은 각각 row rank, column rank라고 부른다. [#]([https://ratsgo.github.io/linear%20algebra/2017/05/20/spaces/](https://ratsgo.github.io/linear algebra/2017/05/20/spaces/))
+
+ 예시로 다음과 같은 행렬 `\( \mathbf{A} \)`에 대해서,
+```\[ 
+\mathbf{A} = \begin{pmatrix}
+5 & -1 & 5 \\
+-1 & 1 & 3 \\
+1 & 1 & 7 \\
+2 & 0 & 4 \\
+1 & -3 & -6\end{pmatrix},
+\begin{array}{c|ccc}
+& \mathbf{C}_1 & \mathbf{C}_2 & \mathbf{C}_3 \\
+\hline
+\mathbf{R}_1 & 5 & -1 & 5\\
+\mathbf{R}_2 & -1 & 1 & 3 \\
+\mathbf{R}_3 & 1 & 1 & 7\\
+\mathbf{R}_4 & 2 & 0 & 4\\
+\mathbf{R}_5 & 1 & -3 & -6
+\end{array}
+ \]```
+ 열 공간은 `\( \R^3 \)`의 sub space이며 5개의 열벡터로 span된다. 즉 열 공간의 원소들은 다음과 같이 선형 조합만으로 나타낼 수 있다.
+```\[ 
+\alpha(5, 1, -5) + \beta(-1, 1, 3) + \gamma(1, 1, 7) + \delta(2,0,4) +\epsilon(1,-3,6) \\
+\text{이때 1열과 2열은 둘다 3열, 4열 벡터와 선형 종속적이므로,} \\
+\gamma(1, 1, 7) + \delta(2,0,4) +\epsilon(1,-3,6) \text{만으로 나타낼 수 있다.}
+ \]```
+ 마지막에서 차원은 3개로 나타나므로, 열 공간은 3차원이며 rank는 3이다. 또한 행 공간은 `\( \R^5 \)`의 sub space이며, 마찬가지로 3차원이며 rank 역시 3이다.
+
+ 열 공간과 행 공간의 특징으로, 둘의 rank는 항상 같다. 선형 독립적인 행벡터가 `\( r \)`개 있으면, 이 벡터들과의 선형조합으로 모든 열벡터를 나타날 수 있기 때문이다. 이 덕분에 행렬은 모두 고유한 rank를 가지게 된다.
+
+ 또한, 어떤 행렬과 그 행렬에 대해 기본행연산을 여러 번 수행한, 즉 row equivalent한 행렬의 rank 역시 같다. 
+
+ 이 덕에 Reduced Row Echelon Form의 rank 마찬가지로 같다. reduced 행렬의 차원은 nonzero 열의 갯수와 같으므로, 이를 rank로 생각할 수 있다. 나아가 `\( n \times n \)` 크기의 정사각행렬의 reduced 행렬이 `\( \mathbf{I}_n \)`과 같다면 그 행렬의 rank는 `\( n \)`이다. 
+
+## Homogeneous Systems
+
+ 미지의 행렬 `\( \mathbf{x} \)`를 구하기 위해선, `\( \mathbf{x} \)`에 관한 식 `\( \mathbf{Ax=B} \)`가 있으며 방정식을 전개하듯 행렬식을 전개하여 풀어나가야 한다. 
+
+ 행렬식을 구하는 이유는, 이는 선형 연립방정식을 푸는 과정과 동일하기 때문이다. 선형 시스템이란 다음과 같은 연립방정식을 말한다.
+```\[ 
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1m}x_m = b_1\\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2m}x_m = b_2\\
+\vdots\\
+a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nm}x_m = b_n
+ \]```
+
+
+ 여기서 `\( a_{ij} \)`를 계수라 부르므로, `\( \mathbf{A}=[a_{ij}] \)`를 계수 행렬이라고 부른다. 위 연립방정식을 행렬식으로 나타내면 다음과 같다.
+```\[ 
+\mathbf{Ax=B} : [n\times m][m \times 1]= [n \times 1]\\
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1m} \\
+a_{21} & a_{22} & \cdots & a_{2m} \\
+\vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nm} \\
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\x_2\\\vdots\\x_m
+\end{pmatrix}
+=
+\begin{pmatrix}
+b_1\\b_2\\\vdots\\b_n
+\end{pmatrix}
+ \]```
+
+
+ Homogeneous Systems란 미분방정식에서와 같이 식에서 `\( \mathbf{B=O} \)`인 경우를 말한다.
+
+ 또한 이러한 행렬식의 풀이는 기본행연산들을 통해 진행할 수 있다. 즉 다음이 성립한다
+```\[ 
+\mathbf{Ax=B} \text{라면, }\mathbf{\Omega Ax=\Omega B}
+ \]```
+ 그리고 기본행연산들이 곧 연립방정식을 풀기 위한 연산이 된다.
+
+### 자유변수
+
+ `\( \mathbf{\Omega Ax} \quad [n\times 1] \)`를 구했다면, 이 행렬은 `\( x_i \)`에 대한 식으로 나타날 것이다. 이때 행렬 (또는 열벡터들)의 스칼라곱으로 표현할 수 있는 `\( x_i \)`가 생길 수 있다. 이러한 `\( x_i \)`를 자유변수(free variable)라고 부른다.
+
+ 연립방정식에서 미지수는 어느 한 상수로 결정할 수 있지만, 자유변수는 그렇지 않다. 구할 수 없는 미지수라고 이야기하는 그것이다.
+
+ 자유변수가 생길 조건은 `\( \mathbf{A}_R \)`, 즉 reduced 행렬에서 leading entry가 없는 열이 존재할 때 발생한다. 이때 자유변수는 그 열에 대응되는 `\( x_i \)`이다. 아래에서 볼드 처리된 원소가 leading entry이며 이것이 속하지 않는 `\( x_2, x_4 \)`가 자유변수이다.
+```\[ 
+\begin{array}{cccc}
+x_1 & x_2 & x_3 & x_4\\
+&\downarrow& &\downarrow\\
+
+\mathbf{1} & 2 & 2 & 2 \\
+0 & 0 & \mathbf{2} & 4 \\
+0 & 0 & 0 & 0
+\end{array}
+ \]```
+
+
+## 해공간 (Solution space)
+
+ `\( \mathbf{Ax=B} \)`을 만족하는 `\( \mathbf{x} \)`의 집합을 해공간이라고 한다. 해공간은 `\( \R^m \)`의 subspace이며, 이 해공간의 차원은 `\( m-rank(\mathbf{A}) \)`, 즉 자유변수의 개수와 같다. (이는 `\( m \)`차원 공간에서 그려지는 도형의 차원과도 같다)
+
+ Homogeneous Systems에서 해공간 `\( S \)`에 속하는 원소들, 즉 `\( \mathbf{x}_i \)`들의 선형조합으로 `\( \mathbf{O} \)`를 만들 수 있다. 즉 다음과 같다.
+```\[ 
+\mathbf{A}(\alpha \mathbf{x}_1 + \beta \mathbf{x}_2) =
+\mathbf{A}\alpha \mathbf{x}_1 + \mathbf{A}\beta \mathbf{x}_2 =
+\mathbf{O+O} = \mathbf{O}
+ \]```
+ 이로 인하여 `\( \alpha \mathbf{x}_1 + \beta \mathbf{x}_2 \)` 또한 `\( S \)`의 원소이다.
+
+ 또한 Homogeneous Systems에선 `\( \mathbf{O}\in S \)`이고, 이러한 해는 자명해(trivial solution)이라고도 불린다. 자명해가 아닌 해(nontrivial solution)은 다음을 만족할 때 존재한다.
+```\[ 
+\mathbf{A}:[n\times m]\\
+m-\text{rank}(\mathbf{A}) > 0
+ \]```
+ 그리고 `\( \mathbf{A} \)`의 크기가 `\( n \times n \)`이라면,  `\( \mathbf{A}_R=\mathbf{I}_n \iff \mathbf{O} \in S \)` 이다.
+
+## Non-Homogeneous Systems
+
+ Non-Homogeneous Systems, 즉 `\( \mathbf{Ax=B} \)`에서 해공간 `\( S \)`는 공집합일 수 있다. 즉 해가 없을수도 있다. (평행하는 두 직선의 방정식이 그러한 예시다) 가능한 `\( \mathbf{x} \)`가 있어 `\( S \)`가 공집합이 아니라면, 이 시스템은 consistent라고 하고, 해가 없으면 inconsistent라고 한다.
+
+ 미분방정식에서와 비슷하게, 해의 차이를 통해 Homogeneous Systems로 생각할 수 있다. 아래와 같다.
+```\[ 
+\mathbf{Ax=B}\text{의 해 }\mathbf{U}_1, \mathbf{U}_2\text{에 대해}\\
+\mathbf{A}(\mathbf{U}_1 - \mathbf{U}_2) = \mathbf{A}\mathbf{U}_1 -\mathbf{A}\mathbf{U}_2 = \mathbf{B-B} = \mathbf{O}\\
+\text{즉 }\mathbf{x'=U}_1 - \mathbf{U}_2\text{또한 해이다. 여기서,}\\
+\mathbf{U}_1 = \mathbf{x}' + \mathbf{U}_2
+ \]```
+ 마지막 식을 보듯 한 특수해 `\( \mathbf{U}_2 \)`와 Homogeneous Systems의 일반해 `\( \mathbf{x}' \)`를 구한다면 Non-Homogeneous Systems를 해결할 수 있다. 풀이를 다시 정리하자면 다음과 같다.
+
+1. `\( \mathbf{Ax=O} \)`의 일반해 `\( \mathbf{H} \)`를 구한다.
+2. `\( \mathbf{Ax=B} \)`의 특수해 `\( \mathbf{U}_p \)`를 구한다.
+3. `\( \mathbf{Ax=B} \)`의 일반해는 `\( \mathbf{H}+\mathbf{U}_p \)` 이다.
+
+## 행렬식 계산
+
+### 특수해 구하기
+
+ 아래 행렬식에서 `\( \mathbf{x} \)`의 특수해를 구해보자.
+```\[ 
+\mathbf{Ax=B}:[n\times m][m\times 1]=[n\times 1]\\
+\begin{pmatrix}
+-3 & 2 & 2 \\
+1 & 4 & 6 \\
+0 & -2 & 2
+\end{pmatrix}
+\mathbf{x} =
+\begin{pmatrix}8 \\ 1 \\ -2\end{pmatrix}
+ \]```
+ 우선 새로운 행렬 `\( \mathbf{[A|B]}, [n\times m+1] \)`을 생각하자. 이는 `\( \mathbf{A} \)`의 우측 1열을 확장하여 `\( \mathbf{B} \)`를 넣은 것이다. 이러한 행렬을 augmented matrix라고 한다. `\( \mathbf{[A|B]} \)`는 `\( \mathbf{A} \)`의 계수들과 `\( \mathbf{B} \)`의 상수들 모두를 포함하고 있다.
+```\[ 
+\left(\begin{array}{ccc|c}
+-3 & 2 & 2 & 8 \\
+1 & 4 & 6 & 1\\
+0 & -2 & 2 & -2 
+\end{array}\right)
+ \]```
+
+
+ 다음으로 `\( \mathbf{[A|B]} \)`를 reduce하여 `\( \mathbf{[A|B]}_R \)`로 만든다. 기본행연산은 행간 연산이기 때문에 reduced의 `\( \mathbf{A} \)`, `\( \mathbf{B} \)`는 서로 영향을 주지 않는다. `\( \mathbf{C=B}_R \)`로 생각하여 `\( \mathbf{[A|B]}_R = \mathbf{[A}_R|\mathbf{C]} \)`로 나타낼 수도 있다. 또한 이렇게 만든 `\( \mathbf{A}_R\mathbf{x=C} \)` 역시 문제의 해공간과 같은 해공간을 가진다.
+```\[ 
+\left(\begin{array}{ccc|c}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & {5 \over 2}\\
+0 & 0 & 1 & {3 \over 2}
+\end{array}\right)
+ \]```
+
+
+ 여기까지 오면 마지막으로 특수해를 찾을 수 있다. 아래와 같이, 자유변수가 아닌 미지수들에 대해서 식을 정리한다. 이때 `\( \mathbf{a}_i \)`는 `\( \mathbf{A} \)`의 `\( i \)` 번째 열벡터이며, `\( x_n, x_{n+1}, \cdots x_m \)`은 자유변수이다.
+```\[ 
+\mathbf{[A}_R|\mathbf{C]} = \left(
+\begin{array}{cccc|c}
+a_{11} & a_{12} & \cdots & a_{1m} & c_1 \\
+a_{21} & a_{22} & \cdots & a_{2m} & c_2 \\
+\vdots&&\ddots&\vdots&\vdots\\
+a_{n1} & a_{n2} & \cdots & a_{nm} & c_n \\
+\end{array}\right) \\ \ \\ \rightarrow 
+\left[
+\begin{array}{cccccccccccc}
+\mathbf{x} & = & x_{n+1} & \mathbf{a}_1 & + & x_{n+2} & \mathbf{a}_2 &  + & \cdots & + & x_{m} & \mathbf{a}_m\\
+\hline
+\begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix} & = &
+x_{n+1} & \begin{pmatrix}a_{11}\\a_{21}\\\vdots\\a_{n1}\end{pmatrix}& +
+&x_{n+2}& \begin{pmatrix}a_{12}\\a_{22}\\\vdots\\a_{n2}\end{pmatrix}& + &\cdots& + &x_{m}&\begin{pmatrix}a_{1m}\\a_{2m}\\\vdots\\a_{nm}\end{pmatrix}
+\end{array}
+\right.
+ \]```
+
+
+ 특히 문제와 같이 `\( \mathbf{A} \)`가 정사각행렬이고 `\( \mathbf{A}_R=\mathbf{I}_n \)`이라면 `\( \mathbf{x=C}=(0, {5\over 2}, {3\over 2}) \)`가 곧 해가 되며, 이 특수해는 유일하다. (즉 `\( \mathbf{x}=\mathbf{A}^{-1}\mathbf{B} \)`는 유일하다)
+
+ 그러나 항상 해가 존재하는 것은 아니다. `\( \mathbf{[A|B]}_R = \mathbf{[A}_R|\mathbf{C]} \)`가 아래와 같은 경우 해는 존재하지 않는다.
+```\[ 
+\left(\begin{array}{cc|c}
+1 & -3/2 & 2\\
+0 & 0 & -4
+\end{array}\right)
+ \]```
+ `\( 0x_1+0x_2=-4 \)`를 만족시키는 `\( x_1, x_2 \)`는 존재하지 않기 때문에, 이 방정식은 inconsistent하다.
+
+### 역행렬, 일반해 구하기
+
+ `\( \mathbf{Ax=O} \)`의 일반해를 구하기 위해선 역행렬의 개념을 알아야 한다. 또한 특수해를 구하는 방법으로도 쓸 수 있다. 역행렬이란 행렬곱의 역원이며 다음과 같다.
+```\[ 
+\mathbf{A}:[n\times n]\text{일 때, 다음을 만족하는 }\mathbf{B}:[n\times n]\text{를 }\mathbf{A}\text{의 역행렬이라 한다.} \\
+\mathbf{AB=BA=I}_n
+ \]```
+ 그러나 역행렬이 항상 존재하는 것은 아니다. 역행렬이 존재하는 행렬을 nonsingular이라 부르고, 그렇지 않은 행렬을 singular라고 한다. 또한 `\( \mathbf{A} \)`의 역행렬이 존재한다면 `\( \mathbf{A} \)`의 역행렬은 유일하다.
+
+ 행렬에 관한 성질로는 다음이 있다. 이때 `\( \mathbf{A,B} \)`는 nonsingular한 `\( n\times n \)` 크기의 행렬이다.
+
+- `\( \mathbf{I}_n \)`은 nonsingular하며, 역행렬이 자기 자신과 같다.
+- `\( \mathbf{(AB)}^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1} \)`
+- `\( \mathbf{(AB)} \mathbf{(AB)}^{-1} = \mathbf{(AB)}^{-1} \mathbf{(AB)} = \mathbf{I}_n \)`
+- `\( \mathbf{(A}^{-1})^{-1} = \mathbf{A} \)`
+- `\( (\mathbf{A}^t)^{-1} = (\mathbf{A}^{-1})^t \)`
+
+ 이 외에도 `\( n\times n \)` 크기의 행렬 `\( \mathbf{A} \)`에 대해 다음을 만족한다
+
+- `\( \mathbf{A}\text{는 nonsingular하다} \iff \mathbf{A}_R = \mathbf{I}_n \)`.
+- `\( \mathbf{A}\text{는 nonsingular하다} \iff rank(\mathbf{A})=n \)`.
+
+- `\( \mathbf{A}\mathbf{B} \)`가 nonsingular하다면, `\( \mathbf{A} \)`와 `\( \mathbf{B} \)` 둘 다 nonsingular하다.
+- `\( \mathbf{A} \)`와 `\( \mathbf{B} \)` 둘 중 하나가 singular하면, `\( \mathbf{A}\mathbf{B} \)`와 `\( \mathbf{B}\mathbf{A} \)` 둘다 singular하다.
+- Homogeneous system `\( \mathbf{A}\mathbf{x}=\mathbf{O} \)`가 비자명해를 가진다면 `\( \mathbf{A} \)`는 singular하며, 역도 성립한다.
+- Non-Homogeneous system `\( \mathbf{A}\mathbf{x}=\mathbf{B} \)`는 `\( \mathbf{A} \)`가 nonsingular할 때 유일한 해를 가지며, 역도 성립한다.
+
+ 또한 모든 기본행연산 `\( \mathbf{E} \)`는 nonsingular하다. 이 사실 덕분에 역연산이 가능하다.
+
+## 최소자승법(least squares)과 데이터 피팅
+
+ `\( n \times m \)` 크기의 행렬 `\( \mathbf{A} \)`와 크기 `\( n \)`인 벡터 `\( \mathbf{B} \)`에 대해, 선형시스템 `\( \mathbf{AX=B} \)`는 여러 해를 가질 수도, 해가 없을 수도 있다. 해가 있다면 `\( \mathbf{B} \)`는 `\( \mathbf{A} \)`의 행공간에 속한다는 의미이다. `\( \mathbf{A} \)`의 행공간 벡터들을 `\( \vec{r_i} \)`라고 하자.
+
+ 여기서 다음을 만족하는 해 `\( \mathbf{X}^* \)`를 least squares vector라고 정의한다.
+```\[ 
+\lVert\mathbf{AX^*-B}\rVert \le \lVert\mathbf{AX-B}\rVert
+ \]```
+ `\( \mathbf{AX}, \mathbf{B} \)`는 크기 `\( n \)`의 벡터이다. 즉, `\( \mathbf{AX-B} \)`의 norm이 최소가 되는 `\( \mathbf{X} \)`를 least squares vector라고 부른다. `\( \mathbf{AX^*-B } \)`는 기하적으로 벡터 `\( \mathbf{B} \)`에서 공간 `\( \sum x_i\vec{r_i} \)`까지 거리가 최소인 벡터를 말하게 된다.
+
+ 좀 더 구체적으로 설명하기 위해, 예시로 `\( \R^2 \)`에서 주어진 `\( (x_i,y_i) \)`들을 이용해 `\( y=ax+b \)`의 미지수 `\( a, b \)`를 구해보자. 이때 주어지는 점의 수가 2개를 넘어가면 `\( (a, b) \)`를 구할 수 없는 상황을 맞기도 한다. 즉 모든 점이 지나는 한 직선을  찾을 수 없다는 것이다.
+```\[ 
+\begin{pmatrix}
+1 & x_1 \\ 1 & x_2 \\ 1 & x_3 \\ 1 & x_4 \\ \vdots
+\end{pmatrix}
+\begin{pmatrix}b\\a\end{pmatrix}
+=
+\begin{pmatrix}y_1 \\ y_2 \\ y_3 \\ y_4 \\ \vdots\end{pmatrix} \\
+\rightarrow \quad \mathbf{AX=B}
+ \]```
+ 그러나 위 행렬식을 바꿔, 다음과 같은 (방정식이 아닌) 식을 만들어보자.
+```\[ 
+\mathbf{AX-B}=
+\begin{pmatrix}
+ax_1+b-y_1 \\
+ax_2+b-y_2\\
+ax_3+b-y_3\\
+\vdots
+\end{pmatrix}
+ \]```
+
+ 이때 `\( ax_i+b \)`는 `\( x_i \)`에서 직선의 `\( y \)`값이다. `\( ax_i+b-y_i \)`은 직선과 점 `\( (x_i, y_i) \)` 간의 `\( y \)`축 거리라고 생각할 수 있다. 이는 또한 오차라고 불리는 것이다. 그러므로 `\( \mathbf{AX-B} \)`를 오차의 벡터라고 볼 수 있다. 
+
+ `\( \mathbf{AX^*-B} \)`는 이 오차의 크기가 최소가 되는 벡터를 말한다. 여기서의 `\( \mathbf{X}^*=(a^*,b^*) \)`를 least squares vector라고 부른다. 또한 이를 구하는 것을 선형회귀라고도 부른다. 
+
+![챕터7-1](챕터7-1.png)
+
+
+
+  정리하자면, 크기 `\( n \)`의 벡터 `\( \mathbf{B} \)`에 대해, 크기 `\( m \)`의 벡터 `\( \mathbf{X^*} \)`는 다음을 만족할 때 least squares vector가 된다.
+
+- `\( \mathbf{AX^*=B}_S \)`, 이때 `\( \mathbf{B}_S \)`는 `\( \mathbf{A} \)`의 행공간 `\( S \)`에 `\( \mathbf{B} \)`를 정사영한 것이다.
+  - `\( \mathbf{B}_S \)`는 `\( S \)`의 벡터들 중에서 `\( \mathbf{B} \)`와 가장 가깝다.
+
+- `\( \lVert\mathbf{B-B}_S\rVert = \lVert\mathbf{B-AX^*}\rVert \le \lVert\mathbf{B-C}\rVert,\quad (\forall\mathbf{C}\in S) \)`. 이에 따라 `\( \mathbf{X^*} \)`는 유일하다.
+
+### least squares vector 구하기
+
+ 이러한 `\( \mathbf{X^*} \)`를 구하기 위해선 `\( \mathbf{A} \)`의 전치행렬 `\( \mathbf{A}^t \)`를 이용하게 된다. 
+
+ 정사영의 성질에 따라, 벡터 `\( \mathbf{B-AX^*} \)`(공간으로부터 B까지의 최소거리 벡터)는 `\( S \)`의 벡터 `\( \vec{c_i} \)`와 항상 수직이다. 즉 `\( (\vec{c_i})^t (\mathbf{B-AX^*})=0 \)`이다. 
+
+ 벡터 `\( \vec{c_i} \)`는 `\( \mathbf{A} \)`의 행벡터이므로, `\( (\vec{c_i})^t \)`를 나열한 것은 `\( \mathbf{A}^t \)`라 생각할 수 있다. 고로 `\( \mathbf{A}^t(\mathbf{B-AX^*})=0 \)`이고, `\( \mathbf{A}^t\mathbf{B}=\mathbf{A}^t\mathbf{AX^*} \)`이다.
+
+ 이를 전개하면 `\( \mathbf{X^*}=(\mathbf{A}^t\mathbf{A})^{-1}\mathbf{A}^t\mathbf{B} \)`이며, 이 식을 통해 `\( \mathbf{X^*} \)`를 구할 수 있다. 그러나 `\( \mathbf{A}^t\mathbf{A} \)`가 nonsignular이라면 `\( \mathbf{X^*} \)`에 대해 전개하지 말고 다른 방법으로 구해야 한다.
+
+## LU Factorization
+
+ `\( n\times m \)` 크기의 행렬 `\( \mathbf{A} \)`를 두 행렬 `\( \mathbf{L} \)`과 `\( \mathbf{U} \)`의 곱으로 나타낼 수 있다. (항상 그런 것은 아니다) 이때 `\( \mathbf{L} \)`, `\( \mathbf{U} \)`는 아래와 같은 모습을 지닌다.
+```\[ 
+\mathbf{L}(n\times n)=
+\begin{vmatrix}
+1 & 0 & 0 & \cdots & 0 \\
+l_{21} & 1 & 0 &\cdots & 0\\
+l_{31} & l_{32} & 1& \cdots & 0\\
+\vdots&&&\ddots&\vdots\\
+l_{n1} & l_{n2} & l_{n3} & \cdots & 1
+\end{vmatrix}, \quad
+\mathbf{U}(n\times m)=
+\begin{vmatrix}
+u_{11} & u_{12} & \cdots & u_{1m}\\
+0 & u_{22} & \cdots & u_{2m}\\
+\vdots&&\ddots&\vdots\\
+0 & \cdots & 0 & u_{nm}\\
+\end{vmatrix}\
+ \]```
+ `\( \mathbf{L} \)`은 대각성분을 기준으로 아래에 데이터가 있으며, `\( \mathbf{U} \)`는 반대로 위에 데이터가 있다.
+
+ 우선 `\( \mathbf{U} \)`는 `\( \mathbf{A} \)`를 기약행사다리꼴 행렬로 변환시킨 것이다. 기본행연산의 모음 `\( \Omega = \mathbf{E}^k \mathbf{E}^{k-1} \cdots \mathbf{E}^1 \)`를 `\( \mathbf{A} \)`에 곱한 것, 즉 `\( \Omega\mathbf{A=U} \)`이다. 여기서 `\( \mathbf{A}=\Omega^{-1}\mathbf{U} \)`이고, `\( \mathbf{L}=\Omega^{-1} \)`이라 생각할 수 있다. 이러한 `\( \mathbf{U, L} \)`은 행렬 `\( \mathbf{A} \)`에 대해 유일하다. [#](https://ratsgo.github.io/linear%20algebra/2017/03/25/LUfactorization/)
+
+ `\( \mathbf{L, U} \)`를 찾는 방법으로는 다양하지만, 가우스 소거법이 대표적으로 쓰인다. `\( \mathbf{U} \)`는 가우스 소거를 끝낸 배열이 되고, `\( \mathbf{L} \)`은 가우스 소거 진행에서 `\( t \)`번째 `\( r \)`행에 사용한 계수(multiplier)로 이루어진 `\( [m_{rt}] \)`로 구성된다.  [#](https://blog.naver.com/cj3024/221124535258).
+
+ 이렇게 `\( \mathbf{L,U} \)`를 정의하는 이유는 행렬식 `\( \mathbf{Ax=B} \)`를 좀 더 쉽게 접근하기 위해 `\( \mathbf{LUx=B} \)`로 나누어 전개하기 위해서다.
+```\[ 
+\mathbf{AX = (LU)X = L(UX) = B} \\
+\text{let  }\mathbf{Y = UX, \quad LY = B }  \\
+\text{get }\mathbf{Y} \text{ for }\mathbf{UX = Y}
+ \]```
+
+ 예시로 아래를 보자.
+```\[ 
+\mathbf{AX=B}: 
+\begin{pmatrix}
+1 & 0 & 2 \\ 2 & 2 & 1 \\ 1 & 1 & 1
+\end{pmatrix} 
+\begin{pmatrix}x_1\\x_2\\x_3\end{pmatrix} =
+\begin{pmatrix}2\\1\\3\end{pmatrix},\\
+\mathbf{A=LU}=
+\begin{pmatrix}
+1 & 0 & 0\\2 & 1 & 0 \\ 1 & 1\over 2 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 & 2\\0 & 2 & -3 \\ 0 & 0 & 1\over 2
+\end{pmatrix}. \\
+ \]```
+
+```\[ 
+\mathbf{LY=B}:
+\begin{pmatrix}
+1 & 0 & 0\\2 & 1 & 0 \\ 1 & 1\over 2 & 1
+\end{pmatrix}
+\begin{pmatrix}y_1\\y_2\\y_3\end{pmatrix} =
+\begin{pmatrix}2\\1\\3\end{pmatrix},\\
+y_1 = 2,\\ 
+2y_1 + y_2 = 1,\quad y_2 = -3,\\
+y_1 + \frac{1}{2}y_2 + y_3 = 3, \quad y_3 = \frac{5}{2}.
+ \]```
+
+```\[ 
+\mathbf{UX=Y} :
+\begin{pmatrix}
+1 & 0 & 2\\0 & 2 & -3 \\ 0 & 0 & 1\over 2
+\end{pmatrix}
+\begin{pmatrix}
+x_1 \\ x_2 \\ x_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+2\\-3\\5\over 2
+\end{pmatrix}. \\
+\frac{1}{2}x_3 = \frac{5}{2}, \quad x_3 = 5. \\
+2x_2 -3x_3 = -3, \quad x_2 = 6, \\
+x_1 + 2x_3 = 2, \quad x_1 = -8
+ \]```
+
+
+
+## 선형 변환
+
+ 어느 함수 `\( T:\vec{u}^n \mapsto \vec{v}^m \)`가 다음을 만족하면 선형 변환(Transfomation)이라고 한다.
+```\[ 
+T(\mathbf{u+v})=T(\mathbf{u})+T(\mathbf{v}) \\
+T(\alpha\mathbf{u})=\alpha T(\mathbf{u})
+ \]```
+ 이 둘을 하나로 정리하여 `\( T(\mathbf{\alpha u+\alpha v})=\alpha T(\mathbf{u})+\alpha T(\mathbf{v}) \)`로 나타내기도 한다. 이에 따라 선형 변환에서 볼 수 있는 성질들이 있다.
+
+- `\( T(\mathbf{O}_n) = \mathbf{O}_m \)`, 정의역의 영벡터는 치역의 영벡터와 대응되어야 한다. (역은 상관없다)
+- `\( n<m \)` 이라면 `\( T \)`는 전사(onto) 함수이다.
+- `\( T \)`가 단사(one-to-one) 함수라면, `\( T(\mathbf{v})=\mathbf{O}_m \iff \mathbf{v=O}_n \)` 이다.
+
+ 그리고 선형 변환은 행렬로 나타낼 수 있다. 위와 같으면, `\( m\times n \)` 크기의 행렬 `\( T \)`는 `\( n \)`차원 벡터 `\( \vec{u}^n \)`과 곱하여 `\( m \)`차원 벡터 `\( \vec{v}^m \)`이 되는 행렬식으로 생각할 수 있다. 선형 변환을 행렬로 표현하는 방법은 아래와 같다.
+```\[ 
+\text{크기 n의 벡터 }\mathbf{u}=\mathbf{u}_1\mathbf{e}_1 + \mathbf{u}_2\mathbf{e}_2 + \cdots + \mathbf{u}_n \mathbf{e}_n,\\
+T(\mathbf{u})=\mathbf{u}_1T(\mathbf{e}_1)+\mathbf{u}_2T(\mathbf{e}_2)+\cdots+\mathbf{u}_nT(\mathbf{e}_n)\\
+=\begin{pmatrix}
+T(\mathbf{e}_1)& T(\mathbf{e}_2)& \cdots& T(\mathbf{e}_n) \\
+\wr & \wr & \cdots & \wr
+\end{pmatrix}
+\begin{pmatrix}\mathbf{u}_1\\\mathbf{u}_2\\\vdots\\\mathbf{u}_n\end{pmatrix}=\mathbf{Tu}
+ \]```
+ 함수 `\( T \)`는 `\( n \)`차원 공간의 단위벡터를 선형변환한 `\( T(\mathbf{e}_i) \)`를 `\( i \)`번째 열로 갖는 행렬이다. 특히 `\( T \)`처럼 기저의 선형변환을 열로 가지는 행렬을 표준행렬 (standard matrix)라고 부른다.
+
+ 이렇게 나타낸 선형 변환 `\( T:\vec{u}^n \mapsto \vec{v}^m  \)`와 그의 행렬 표현 `\( \mathbf{T} \)`는 다음과 같은 성질을 가진다.
+
+- 다음 조건들이 동치이다.
+  - `\( T \)`는 단사(one-to-one) 함수이다.
+  - `\( \text{rank}(\mathbf{T})=n \)`.
+  - `\( \mathbf{T} \)`의 열벡터들이 선형 독립적이다. (또한 nonsigular하다, 역함수가 있다)
+- 다음이 동치이다.
+  - `\( T \)`는 전사(onto) 함수이다.
+  - 시스템 `\( \mathbf{Tx=B} \)`에 대해  `\( \forall \mathbf{B} \in \vec{v}^m, \exists \mathbf{x} \)`이다.
+  - `\( \mathbf{T} \)`의 열벡터들이 `\( \vec{v}^m \)`을 span한다.
+  - `\( \forall \mathbf{B} \in \vec{v}^m, \text{rank}(\mathbf{T})=\text{rank}([\mathbf{T|B}]) \)`.
+
+  또한 `\( \forall \mathbf{x} \in \vec{u}^n, T(x)=\mathbf{O}_m \)` 이라면 `\( T \)`를 영공간(null space)라고 부른다. 영공간은 Homogeneous Systems `\( \mathbf{Tx=O} \)`의 해공간이기도 하다. 이 때문에 영공간의 차원은 `\( n - \text{rank}(\mathbf{T}) \)`이다.
+
